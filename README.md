@@ -1,56 +1,50 @@
-You spend minutes each morning deciding what to work on. This is a tool to help.
+# tasklog-ai
+You spend time every morning staring at your todo list, rearranging lines instead of starting your work.
 
-# TaskLog.ai
-A self-deployable, AI-assisted task prioritizer. It sorts your list.
+This tool helps you decide quickly. You send one request and receive a ranked task list with reasoning. No accounts. No tracking. ✨
 
----
-
-## Why this exists
-Productivity tools change, get acquired, or add paywalls. This is a static template you can deploy and own. It will only change if you change it.
-
-## Try the demo
-A live instance is running for testing. Nothing you enter is stored.
-**https://tasklog-ai.casey-digennaro.workers.dev**
+A live instance is running at **https://tasklog-ai.casey-digennaro.workers.dev**. Nothing you enter is stored.
 
 ---
 
-## What it is
-- A single Cloudflare Worker. The entire application is in one file.
-- Stateless. No database, logs, or history. Your list exists only for the request.
-- Fork-first. You own your copy. There is no upstream service to depend on.
-- Private. AI calls go directly from your deployment to your chosen provider.
-
-## Features
-*   **Priority Sorting:** Submit an unordered task list. It returns a ranked order with reasoning for each item.
-*   **Context Injection:** You can attach notes or deadlines to inform the prioritization.
-*   **Simple API:** A documented POST endpoint. No authentication.
-*   **Fleet Compatible:** Optional integration with the open Cocapn protocol.
-*   **One Limitation:** It does not store or recall your tasks between sessions. It is a processor, not a database.
+## Why This Exists
+Many task apps add features without solving the core issue: choosing what matters *now*. This does not manage your entire workflow. It provides a clear priority order when you ask.
 
 ---
 
 ## Quick Start
-1.  Click "Deploy with Cloudflare Workers" from your fork of this repository.
-2.  Set one environment variable: `AI_API_KEY` (your OpenAI, Anthropic, or compatible API key).
-3.  It's live. Send a POST request to `/prioritize` with your tasks.
+1.  **Fork** this repository. This is a fork-first project.
+2.  **Deploy** to Cloudflare Workers with the "Deploy with Workers" button.
+3.  **Set** one environment variable: `AI_API_KEY` (your OpenAI, Anthropic, or compatible API key).
+4.  **Use** the single POST endpoint.
 
-## How it Works
-This is a stateless function. You send a JSON payload with a list of tasks and optional context. It forwards this to your configured AI model, formats the response, and sends the ranked list back. Nothing is written to disk or cached.
-
-## Bring Your Own Keys
-The code contains no embedded keys or proxies. All AI calls are made directly from your deployed Worker to your provider. You are not charged through any intermediary.
-
-## Contributing
-Improvements are welcome. Fork the repository, make your changes, and open a pull request to share them back.
-
-## License
-MIT License
-
-Attribution: Superinstance & Lucineer (DiGennaro et al.)
+**Example Request:**
+```bash
+curl -X POST https://your-deployment.workers.dev/prioritize \
+  -H "Content-Type: application/json" \
+  -d '{"tasks": ["Write project report", "Reply to client email"]}'
+```
 
 ---
 
-<div align="center">
-  <a href="https://the-fleet.casey-digennaro.workers.dev">The Fleet</a> · 
-  <a href="https://cocapn.ai">Cocapn</a>
-</div>
+## How It Works
+This is a single, stateless Cloudflare Worker. Your task list is sent directly from your deployment to your configured AI provider. The ranked list and reasoning are returned immediately. There is no caching, logging, or storage.
+
+---
+
+## Features
+*   **Priority Sorting:** Submit an unordered list; receive a ranked order with reasoning for each item.
+*   **Add Context:** Include deadlines, energy levels, or notes to influence the priority weighting.
+*   **Simple API:** One POST endpoint (`/prioritize`). No authentication or SDK required.
+*   **Direct & Private:** AI API calls go straight from your Worker to your provider.
+*   **Fleet Compatible:** Works with the open Cocapn Fleet protocol.
+*   **Specific Limitation:** Processes up to 15 tasks per request to ensure fast, consistent responses.
+
+---
+
+## License
+MIT License.
+
+Attribution: Superinstance and Lucineer (DiGennaro et al.).
+
+<div style="text-align:center;padding:16px;color:#64748b;font-size:.8rem"><a href="https://the-fleet.casey-digennaro.workers.dev" style="color:#64748b">The Fleet</a> &middot; <a href="https://cocapn.ai" style="color:#64748b">Cocapn</a></div>
