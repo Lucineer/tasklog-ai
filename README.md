@@ -1,59 +1,63 @@
-<p align="center">
-  <img src="https://raw.githubusercontent.com/Lucineer/capitaine/master/docs/capitaine-logo.jpg" alt="Capitaine" width="120">
-</p>
+# TaskLog.ai
 
-<h1 align="center">tasklog-ai</h1>
+You don't need another todo list. You need a tool that tracks your actual work.
 
-<p align="center">Task Manager — AI-powered task management and productivity.</p>
+This is a minimal, AI-assisted task logger built as a stateless vessel for the Cocapn Fleet. No database, no tracking, no subscription. You deploy it. You control it.
 
 ---
 
-**Vessel stub** · Needs `worker.ts` to deploy · Part of the [Lucineer fleet](https://github.com/orgs/Lucineer/repositories)
+## Why this exists
 
-## Status
+Modern task managers are often bloated or lock you into their ecosystem. This is built to be the opposite: a single-file script that does one job. It is auditable, self-contained, and has zero runtime dependencies. It does not phone home.
 
-🟡 Hull not yet deployed. Fork and add a `worker.ts` to bring this vessel online.
+**Live instance:** https://tasklog-ai.casey-digennaro.workers.dev
 
-## The Fleet
+---
 
+## What it does
 
-<details>
-<summary><strong>⚓ The Fleet</strong></summary>
+*   **Zero Dependencies.** The entire application is one file. It deploys in seconds to Cloudflare Workers.
+*   **Fork-First.** You own your copy. No central service can alter or sunset it for you.
+*   **Bring Your Own AI.** Configure your own API keys for any LLM provider. No defaults.
+*   **Fleet Native.** It speaks the Cocapn protocol and can interact with other vessels you run.
 
-**Flagship vessels**
+## Features
 
-- [cocapn.ai](https://github.com/Lucineer/capitaine)
-- [personallog.ai](https://github.com/Lucineer/personallog-ai)
-- [businesslog.ai](https://github.com/Lucineer/businesslog-ai)
-- [studylog.ai](https://github.com/Lucineer/studylog-ai)
-- [makerlog.ai](https://github.com/Lucineer/makerlog-ai)
-- [playerlog.ai](https://github.com/Lucineer/playerlog-ai)
-- [dmlog.ai](https://github.com/Lucineer/dmlog-ai)
-- [reallog.ai](https://github.com/Lucineer/reallog-ai)
-- [deckboss.ai](https://github.com/Lucineer/deckboss-ai)
+*   **AI Task Sorting.** Pass a list of tasks and receive them ordered by suggested priority.
+*   **Basic Contextual Recall.** Provide previous task notes for more relevant AI suggestions.
+*   **Stateless API.** A simple REST endpoint you can call from any script, CLI, or client.
+*   **No Accounts.** No mandatory frontend. Use it as a private API for your own systems.
 
-**Fleet services**
+**One Limitation:** As a stateless worker, it does not store your task history. It processes input and returns output. Persistence is up to your client.
 
-- [Fleet Catalog](https://github.com/Lucineer/capitaine/blob/master/docs/fleet/FLEET.md)
-- [Git Agent (full)](https://github.com/Lucineer/git-agent)
-- [Cocapn Lite (minimal)](https://github.com/Lucineer/cocapn-lite)
-- [Fleet Orchestrator](https://github.com/Lucineer/fleet-orchestrator)
-- [Dead Reckoning Engine](https://github.com/Lucineer/dead-reckoning-engine)
-- [Dream Engine](https://github.com/Lucineer/dream-engine)
-- [Seed UI (5 layers)](https://github.com/Lucineer/seed-ui)
+## Quick Start
 
-**For power users**
+1.  **Fork** this repository.
+2.  Deploy it to Cloudflare Workers.
+3.  Add your `AI_API_KEY` as an environment variable.
+4.  Start sending POST requests.
 
-- [Cocapn Lite (tabula rasa)](https://github.com/Lucineer/cocapn-lite)
-- [Cocapn (core platform)](https://github.com/Lucineer/cocapn)
-- [ZeroClaw (framework)](https://github.com/Lucineer/zeroclaw)
+## Architecture
 
-[View all 106 repos →](https://github.com/orgs/Lucineer/repositories)
-[Fleet manifest →](https://github.com/Lucineer/capitaine/blob/master/docs/fleet/FLEET.md)
+It runs as a single Cloudflare Worker (`worker.ts`). It follows Cocapn Fleet protocol conventions. All state is managed in the request/response cycle. Your API keys exist only in your deployment environment.
 
-</details>
+## Bring Your Own Keys
 
+You must provide your own AI API key. No keys are bundled, logged, or proxied. You can use OpenAI, Anthropic, or any compatible provider.
+
+## Contributing
+
+Improvements are welcome. Fork, make your changes, and open a pull request.
 
 ## License
 
-MIT · Superinstance & Lucineer (DiGennaro et al.)
+MIT License
+
+Attribution: Superinstance & Lucineer (DiGennaro et al.)
+
+---
+
+<div align="center">
+  <a href="https://the-fleet.casey-digennaro.workers.dev">The Fleet</a> · 
+  <a href="https://cocapn.ai">Cocapn</a>
+</div>
